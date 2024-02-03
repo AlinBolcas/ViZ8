@@ -22,25 +22,36 @@ image_pipe = None
 
 def load_models():
     global text_pipe, image_pipe
+    
+    # Determine the appropriate device
+    if torch.cuda.is_available():
+        device = "cuda"
+    elif torch.backends.mps.is_available():
+        device = "mps"  # For Apple Silicon GPUs
+    else:
+        device = "cpu"
+    
+    # Load text-to-image model if not already loaded
     if text_pipe is None:
         text_pipe = AutoPipelineForText2Image.from_pretrained(
             "stabilityai/sdxl-turbo", torch_dtype=torch.float16, variant="fp16"
         )
-        text_pipe.to("mps")
+        text_pipe.to(device)
     
+    # Load image-to-image model if not already loaded
     if image_pipe is None:
         image_pipe = AutoPipelineForImage2Image.from_pretrained(
             "stabilityai/sdxl-turbo", torch_dtype=torch.float16, variant="fp16"
         )
-        image_pipe.to("mps")
+        image_pipe.to(device)
+
+# Call the function to load models
+load_models()
 
 # Thread to load models
 # import threading
 # model_thread = threading.Thread(target=load_models)
 # model_thread.start()
-
-load_models()
-
 
 def OAI_response(prompt, context):
     system_prompt = """
