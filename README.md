@@ -32,12 +32,12 @@ Ensure you have Python 3.6+ and pip installed on your system. This app relies on
 1. Clone the repository:
 
 ```
-git clone https://github.com/yourusername/elvirio-viz.git
+git clone git@github.com:AlinBolcas/ViZ8.git
 ```
 2. Navigate to the project directory:
 
 ```
-cd elvirio-viz
+cd ViZ8
 ```
 
 3. Install the required dependencies:
