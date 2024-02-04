@@ -22,38 +22,18 @@ image_pipe = None
 
 def load_models():
     global text_pipe, image_pipe
-
-    # Determine the appropriate device
-    # device = "cuda" if torch.cuda.is_available() else "cpu"
-    # dtype = torch.float32  # Default dtype
-    # variant = "fp32"  # Default variant
-    
-    # Adjust dtype and variant for GPU devices
-    # if torch.cuda.is_available():
-        # dtype = torch.float16
-        # variant = "fp16"
-    # elif torch.backends.mps.is_available():
-        # Apple Silicon GPUs can use fp16 for better performance
-        # device = "mps"
-        # dtype = torch.float16
-        # variant = "fp16"
-    
-    # Load text-to-image model if not already loaded
     if text_pipe is None:
         text_pipe = AutoPipelineForText2Image.from_pretrained(
-            "stabilityai/sdxl-turbo" #, torch_dtype=dtype, variant=variant
+            "stabilityai/sdxl-turbo", torch_dtype=torch.float16, variant="fp16"
         )
-        text_pipe.to("cpu")
+        text_pipe.to("mps")
     
-    # Load image-to-image model if not already loaded
     if image_pipe is None:
         image_pipe = AutoPipelineForImage2Image.from_pretrained(
-            "stabilityai/sdxl-turbo" #, torch_dtype=dtype, variant=variant
+            "stabilityai/sdxl-turbo", torch_dtype=torch.float16, variant="fp16"
         )
-        image_pipe.to("cpu")
-    # text_pipe.enable_model_cpu_offload()
-    # image_pipe.enable_model_cpu_offload()
-
+        image_pipe.to("mps")
+        
 # Call the function to load models
 load_models()
 
