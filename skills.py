@@ -51,8 +51,8 @@ def load_models():
             "stabilityai/sdxl-turbo" #, torch_dtype=dtype, variant=variant
         )
         image_pipe.to("cpu")
-    text_pipe.enable_model_cpu_offload()
-    image_pipe.enable_model_cpu_offload()
+    # text_pipe.enable_model_cpu_offload()
+    # image_pipe.enable_model_cpu_offload()
 
 # Call the function to load models
 load_models()
