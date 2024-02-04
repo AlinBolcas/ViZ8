@@ -1,5 +1,6 @@
 # Elvirio ViZ 8.0
 
+This is my very first web app try: building openai api & stable diffusion XL Turbo (huggingface)
 The rest of this README is gpt4 generated.
 ### TODO:
 - reorganising whole system structure
